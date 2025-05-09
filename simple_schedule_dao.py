@@ -42,7 +42,13 @@ class ScheduleDAO:
 
     def update(self, schedule_id, title, description, start_time, end_time, type_):
         """(2) スケジュール更新"""
-        pass
+        self.cursor.execute('''
+            UPDATE schedule
+            SET title = ?, description = ?, start_time = ?, end_time = ?, type = ?
+            WHERE id = ?
+        ''', (title, description, start_time, end_time, type_, schedule_id))
+        self.conn.commit()
+        return self.cursor.rowcount
 
     def delete(self, schedule_id):
         """(3) スケジュール削除"""
