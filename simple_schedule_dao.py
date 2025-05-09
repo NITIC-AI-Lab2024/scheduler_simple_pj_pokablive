@@ -52,7 +52,9 @@ class ScheduleDAO:
 
     def delete(self, schedule_id):
         """(3) スケジュール削除"""
-        pass
+        self.cursor.execute('DELETE FROM schedule WHERE id = ?', (schedule_id,))
+        self.conn.commit()
+        return self.cursor.rowcount
 
     def close(self):
         """接続を閉じる"""
